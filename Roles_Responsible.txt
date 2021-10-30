@@ -1,0 +1,463 @@
+Task 1: Monitor all the server disk space and informed to Nitin and Rajeev Sir to delete the space
+       Used commands: df -Th  -- To check the disk space
+                      du -sh * | grep G -- check the directory space 
+
+Task 2:Monitoring the  Service running status
+Task 3:Creating Failed job/process and batch job execution count
+Task 4:Monitoring the Memory utilization from report
+Task 5:Monitoring Observium for Load avg,System I/O of all servers
+Task 6:Parser deployment on EMP QA(101.53.142.42)
+       1.Jenkins run on : 172.16.0.68:8080 --EPM-QA,NEWRE 
+       2.download the parser from project build no 
+       3.copy to 101.53.142.42:scp -r EPM-parser-1.12-SNAPSHOT.jar root@101.53.142.42:/mnt
+       4.After transfer the jar to the server, type the "parser_deploy"
+       5.parser_deploy --In the mnt folder
+       6.username : root
+       7. For deployment type 1 and 2 respectfully
+
+Task 7:Depoly Solar UI on wind3 server(205.147.98.133)
+       -- Build the Jenkins jobs on http://172.16.0.66:8082
+       -- Pull the image on portainer (Docker Gamesha VPN) and update it
+             --spfs-prod image
+       -- Do Sanity check for https://restaging.50hertz.in/  and after that confirmed.
+
+Task 8: On wind3 server(205.147.98.133)
+       -- Create an user and give the password for FTP 
+        e.g.
+        # useradd kkr -s /sbin/nologin
+        # passwd kkr
+        -- Giving permissions to the Folder as per request
+        
+        e.g. Here below permission(read) has been given to kkr user for SEMS folder 
+
+         setfacl -m u:kkr:rx /home/wind/
+         setfacl -m u:kkr:rx /home/wind/SOLAR/
+         setfacl -m u:kkr:rx /home/wind/SOLAR/SEMS/
+
+         How to konw the permission is given proper
+
+         getfacl /SEMS
+
+         -- After this work has been done update the documentation and send the email to team
+
+ Task 9:wind3 server(205.147.98.133) ---Update the properties file details as per the request
+
+         path: /home/PROPERTY_FILES/SOLAR
+         -- Similary for WIND properties files
+         -- using vi/vim editor edit the files
+
+ Task 10: On AWS FTP server (15.207.32.135)
+        -- Create an user and give the password for FTP 
+        e.g.
+        # useradd kkr -s /sbin/nologin
+        # passwd kkr
+        -- Giving permissions to the Folder as per request
+        
+        e.g. Here below permission(read) has been given to kkr user for SEMS folder 
+
+         setfacl -m u:kkr:rx /home/wind/
+         setfacl -m u:kkr:rx /home/wind/SOLAR/
+         setfacl -m u:kkr:rx /home/wind/SOLAR/SEMS/
+
+         How to konw the permission is given proper
+
+         getfacl /SEMS
+     -- After this work has been done update the documentation and send the email to team
+
+
+ Task 11: On EPM Production Server(13.127.156.228)
+
+        Restart the SCHEDULAR 4 process
+        -- Check the process 
+         ps aux | grep SCH
+         -- Restart the Process, first kill the process and run the script for running the process
+         e.g.kill -9 26685; sh /home/www_epm/prod/bin/EPM-engine4.sh
+
+         Another way of restart the SCHEDULAR 4
+
+         e.g. kill -9 26685;nohup /var/lib/java/jdk1.8.0_211/bin/java -Duser.timezone=IST -DAsyncLogger.ThreadNameStrategy=UNCACHED -Dserver.mode=prod -Xmx2g -DPROCESSNAME=SCHEDULAR-4 -DEPM_HOME=/home/www_epm/prod -Dcom.sel.product=epm -Dspring.batch.job.enabled=false -Dorg.quartz.scheduler.instanceName=SCHEDULAR-4 -XX:+HeapDumpOnOutOfMemoryError -jar /home/www_epm/prod/lib/EPM-parser-1.12-SNAPSHOT_02032021.jar&
+ 
+ Task 12: run the script for fetching the data (3.7.173.57--bids)
+   3.7.173.57
+
+Task: Understanding the OPC_QA Data fething through the Python script
+     
+     --taglist -- we are collecting the taglist 
+     
+     Process:
+     On the client machine (path:D/Manikaran_QCA)
+     -- Type on cmd on above path to list out the file
+        #opc -q  (To list out the files on this folder)
+        #opc CoDeSys.OCP.DA -l
+        #opc CoDeSys.OCP.DA -f
+
+        How to update the file 
+        1. In this path: scada_producer.py file is present
+        Now we can create another script which is copied from scada_producer.py file
+        2.Update the the function on python script (sendOutTopPC(body,logger)) on both the file
+        3.As we create twoscript from one, we need to remove the one method form it.
+        4.add mongoid -- to get the OPC data
+        5.note: bestway to take the backup for script 
+
+        Working on Script:
+
+        -- update both the script
+        -- change the sendOutTopNew method of ip
+        --create "fetch.bat"
+        -- create two copy of this script for run the two python script
+        -- After that run two fetch.bat script for get the data into kafka server        
+        e.g. Check the nvkn.50hertz.in site that data is coming or not
+
+Task: change the config file and restart the job on portainer
+        /home/PROPERTY_FILES/SOLAR-- On scadaconfig.properties
+
+        Restart the job 
+
+
+
+
+  Task 12: User system support 
+        -- Install Java using zip file 
+         Setting the class path:
+               [root@files ~]# update-alternatives --config java
+
+         There is 1 program that provides 'java'.
+
+  Selection    Command
+-----------------------------------------------
+*+ 1           /opt/jdk1.8.0_211/bin/java -- copy the path
+
+[root@files ~]# echo "JAVA_HOME=/opt/jdk1.8.0_211/bin/java" >> .bash_profile 
+[root@files ~]# source .bash_profile 
+[root@files ~]# echo $JAVA_HOME
+/opt/jdk1.8.0_211/bin/java
+
+--- Set the class path of maven
+[root@files ~]# echo "M2_HOME=/opt/apache-maven-3.5.4" >> .bash_profile 
+                echo "M2_HOME=/opt/apache-maven" >> .bash_profile
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ -- Install MySQL 5.7 on centos 7 
+----------------------------
+
+Step 1 – Enable MySQL Repository
+#yum localinstall https://dev.mysql.com/get/mysql57-community-release-el7-9.noarch.rpm
+
+First of all, You need to enable MySQL 5.7 community release yum repository on your system. 
+The rpm packages for yum repository configuration are available on MySQL official website. 
+
+Step 2 – Install MySQL 5.7 Server
+Now, install MySQL 5.7 community server using following commands as per your operating system version.
+
+#yum install mysql-community-server
+
+The above command will install MySQL community server will other dependencies on your system. 
+During the installation process of packages, a temporary password is created and logs to MySQL log files. 
+Use the following command to find your temporary MySQL password.
+
+Get Temporary root Password:
+
+#grep 'A temporary password' /var/log/mysqld.log |tail -1
+
+2021-02-10T09:25:27.880705Z 1 [Note] A temporary password is generated for root@localhost: l*aFHo,uG8>X
+
+#3. Start MySQL Service
+
+After installing rpms use following command to start MySQL Service.
+
+#service mysqld start
+
+#4. Initial MySQL Configuration
+
+Execute mysql_secure_installation script and follow the wizard. It will prompt for root password. 
+Use the temporary root password got in above step.
+
+# /usr/bin/mysql_secure_installation
+
+Securing the MySQL server deployment.
+
+Enter password for user root: 
+
+The existing password for the user account root has expired. Please set a new password.
+
+New password: 
+
+Re-enter new password: 
+The 'validate_password' plugin is installed on the server.
+The subsequent steps will run with the existing configuration
+of the plugin.
+Using existing password for root.
+
+
+--> After use the password, skip the other steps
+
+
+
+Step – Login to MySQL 
+
+Congratulations! You have successfully installed MySQL 5.7.
+
+To check the MYSQL Install --Login to mysql as below command:
+
+#mysql -h localhost -u root -p 
+
+Step 6 – Check MySQL Version
+
+verify the mysql version:
+# mysql -V
+
+output:
+mysql  Ver 14.14 Distrib 5.7.33, for Linux (x86_64) using  EditLine wrapper
+
+
+Refer the below link:
+https://phoenixnap.com/kb/access-denied-for-user-root-localhost
+
+Upgrade the mongodb version: mongo 3.2 to 4.3 version
+
+systemctl stop mongod
+yum erase $(rpm -qa | grep mongodb-enterprise)
+yum erase $(rpm -qa | grep mongodb-org)
+cd /etc/yum.repos.d/
+ls
+rm -rf mongodb-org.repo mongodb.repo
+vi /etc/yum.repos.d/mongodb.repo
+yum -y install mongodb-org
+systemctl enable --now mongod
+systemctl status mongod
+
+
+.513.126.148.5
+EPM-PROD AWS
+########################################################
+
+
+OPC DA : 
+#############
+
+Working On OPC_DA
+
+1. Connect to Client system using anydesk
+
+Case 1: For checking the logs and cmd line for data is updating or not
+    -- Check the log file
+    -- Update the python(producer) script for read the log
+    -- do uncomment the log function
+    -- Now run the fetch.bat file on cmd for check the log
+    -- If it is shows good, then it is working file
+
+Case 2: If it is not working file
+    -- Restart the client machine
+    -- again do check the all process on case 1
+Case 3: Stop the Schedule task on Client System
+    -- Another way to start the OPC DA data 
+    -- First check the log or rename as backup log
+    -- Goto Control Pannel -- Adminstrative--schedular task
+    -- Schedule task -- Manikaran -- right click -- end
+                                  -- right click -- disable
+
+    -- Now task has been disable
+    -- Now Goto D drive where Manikaran folder 
+    -- Run the fetch.bat script and see the status of script
+    -- If data is showing good, then it has been successful
+    -- Now goto Control Pannel -- Adminstrative--schedular task and make it enable
+
+
+    OPC UA:
+     Login to sever: rdesktop 13.232.251.4 -g 1300*600
+
+     Process:
+     1.we will create channel and device by the given credential by client
+     2. After creating the Channel, we will get the tags from client 
+     3. Now we will create a data logger
+         Right click the Data Logger -> create new group
+         1. Fill the general Properties , e.g. Name: Charanka_A2_INV3, Update rate: 60 seconds
+                                               Store and Forward enabled, Maximum storage size:100 MB
+                                               Data source Properties: DNS: charanka, User Name: charanka, Password, Login Time: 1000 seconds
+                                               Batch Identifier: Upate rate: 60 seconds
+        2. Go to Data Map tab
+           -- Browser-- the tags and add it
+           -- create new database or append it if exsit the data base e.g Charanka_A2
+
+       3. Go to Triggers tab
+           set the triger and save it.
+
+    It will working now.
+
+    4. In this way we store the data OPC UA into our database 
+
+
+     
+
+Adding to MongoDB 
+######################
+
+    {"display_name":"Khirsara-Adani"}    "status":true, 
+
+Restart NVKN(E2E) connect:
+############################
+
+1. Login to the server 
+    NEWRE_KAFKA_C1:164.52.195.22
+
+2. check the process 
+
+ps aux | grep connecter-standalone
+
+3. Kill the process
+
+kill -9 <pid>
+
+4.Login to kafka user
+
+#sudo su kafka
+
+5. Remove connect.offsets file on /tmp
+
+cd /tmp;
+rm -rf connct.offsets
+6. Go to the kafka-live directory
+
+#cd /home/kafka/kafka-live/
+#nohup bin/connect-standalone.sh config/connect-standalone.properties config/connect-file-source.properties>connect-nohup.out &
+
+7. check the logs on 
+ #cd logs
+ # tail -f connector.log
+
+
+8. Restart the bids:
+
+ 1. Login to the server  Bids
+
+ ssh admin@3.7.173.57
+ 2. go the root
+ # sudo su
+ 3.login to the mpl user
+ # su mpl
+
+ 4. go the web folder
+ 
+ #cd /home/mpl/web
+ 5. restart the process
+ #/usr/bin/perl utils/process-reports&
+
+ 6. check the process 
+
+ ps aux | grep process
+
+9.Check the fathegad data is updating or not:
+
+mysql -u root -p
+Admin@32121
+
+use kepex;
+mysql> select _TIMESTAMP,_QUALITY,count(0) from eden where _TIMESTAMP like '2021-10-02%'  group by _TIMESTAMP,_QUALITY order by _TIMESTAMP;
+
+32121
+
+9100036760
+
+
+10. How to copy file to remote server in EC2 instance
+
+scp -i "docker2key.pem" first_playbook.yml ec2-user@ec2-3-87-62-236.compute-1.amazonaws.com:/tmp/
+
+
+
+11. Docker visualizer for see the docker swarm nodes
+
+docker run -it -d -p 9090:9090 -v /var/run/docker.sock:/var/run/docker.sock dockersamples/visualizer
+
+
+VERSION=v0.36.0 # use the latest release version from https://github.com/google/cadvisor/releases
+sudo docker run \
+  --volume=/:/rootfs:ro \
+  --volume=/var/run:/var/run:ro \
+  --volume=/sys:/sys:ro \
+  --volume=/var/lib/docker/:/var/lib/docker:ro \
+  --volume=/dev/disk/:/dev/disk:ro \
+  --publish=8084:8080 \
+  --detach=true \
+  --name=cadvisor \
+  --privileged \
+  --device=/dev/kmsg \
+  gcr.io/cadvisor/cadvisor:v0.36.0
+
+
+
+ 12. grafana and prometheus configuration 
+ https://www.devopsart.com/2021/03/step-by-step-to-monitor-docker.html
+
+
+    docker run -d -p 8084:8080 -v /:/rootfs:ro -v /var/run:/var/run:rw -v /sys:/sys:ro -v /var/lib/docker/:/var/lib/docker:ro --name=cadvisor google/cadvisor:latest
+
+    docker run -d -p 9100:9100 --name=node-exporter prom/node-exporter
+
+
+    sshpass -p d@bDy!8&^tyu&{#8 sftp Weather_fb@$14.140.36.68 
+
+    sftp -P 22 Weather_fb@14.140.36.68
+    password: 
+
+    docker run -itd --user 998:998 --name=telegraf \
+      -v /proc:/host/proc:ro \
+      -v /etc/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro \
+      telegraf
+
+
+docker stats --all --format "table {{.Container}}\t{{.CPUPerc}}\t{{.MemUsage}}"
+
+docker stats --format "{{.Container}}: {{.CPUPerc}}"
+
+
+docker run --rm \
+  -e INFLUXDB_DB=telegraf -e INFLUXDB_ADMIN_ENABLED=true \
+  -e INFLUXDB_ADMIN_USER=admin \
+  -e INFLUXDB_ADMIN_PASSWORD=supersecretpassword \
+  -e INFLUXDB_USER=telegraf -e INFLUXDB_USER_PASSWORD=secretpassword \
+  -v influxdb-volume:/var/lib/influxdb \
+  influxdb /init-influxdb.sh
+
+
+  SCHEDULE_CLIENT_UPLOAD
+
+   ftp://ftp.50hertz.in/SOLAR/TS/CHELPUR/CHELP_SCCL
+
+13: How to create user and given setfacl access to the user
+
+Complete FTP Creation on awsftp:
+   useradd chel -s /sbin/nologin
+   3Orq0PxsQt6lDIAp
+
+   chmod -R 770 CHELPUR
+
+   setfacl -m u:chel:rx /home/wind/
+   setfacl -m u:chel:rx /home/wind/SOLAR/
+   setfacl -m u:chel:rx /home/wind/SOLAR/TS/
+   setfacl -m u:chel:rx /home/wind/SOLAR/TS/CHELPUR/
+   setfacl -m u:chel:rx /home/wind/SOLAR/TS/CHELPUR/CHELP_SCCL/
+
+   setfacl -R -m u:chel:rwx /home/wind/SOLAR/TS/CHELPUR/CHELP_SCCL/
+   getfacl /home/wind/SOLAR/TS/CHELPUR/
+   getfacl /home/wind/SOLAR/TS/CHELPUR/CHELP_SCCL/
+
+
+Hi Prateek,
+
+Please find the below details of FTP.
+
+Here the details:
+
+Server name:- ftp.50hertz.in
+User:chel
+Password: 3Orq0PxsQt6lDIAp
+Path: ftp://ftp.50hertz.in/SOLAR/TS/CHELPUR/CHELP_SCCL
+
+
+14.How to install portainer ?
+
+https://levelup.gitconnected.com/portainer-the-easy-way-to-manage-docker-a982a17146c1
+
+
+
