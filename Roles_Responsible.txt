@@ -507,3 +507,7 @@ We can check the targets are up or not in Prometheus by http://server-IP:9090/ta
 # docker run -d -p 3000:3000 --name=grafana grafana/grafana:latest
 
 We can access Grafana in browser by http://server-IP:3000
+
+16. Git token:
+
+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
