@@ -1,0 +1,76 @@
+docker stats --all --format "table {{.Container}}\t{{.CPUPerc}}\t{{.MemUsage}}"
+
+docker stats --format "{{.Container}}: {{.CPUPerc}}"
+
+docker stats --all
+docker stats -a
+
+Docker interview questions and answer?
+
+1. What are Docker containers?
+   -Docker containers create an abstraction at the application layer and package applications together with all of their dependencies. 
+   -This allows us to deploy applications quickly and reliably.
+   -Containers don’t require us to install a different operating system. 
+   -Instead, they use the underlying system’s CPU and memory to perform tasks. 
+   -This means that any containerized application can run on any platform regardless of the underlying operating system. 
+   -We can also think of containers as runtime instances of Docker images.
+
+2. What is a DockerFile?
+   - A Dockerfile is a text file that contains all of the commands that we need to run 
+
+
+1. How to install wordpress with Docker?
+
+--MariaDB in a container
+
+  Before installing WordPress with Docker you will need to have somewhere to store the data. MariaDB is a community-developed relational database management system and a drop-in replacement for MySQL.
+
+  - creating new directory where we will store the files for wordpress and Mariadb
+    # cd ~/wordpress
+    # cd ~/wordpress
+    # pwd
+    /root/wordpress
+
+  - Downloading and installing a new MariaDB container can all be performed with a single command. 
+    Before jumping in check the required parameters.
+
+
+    -e MYSQL_ROOT_PASSWORD= Set your own password here.
+    -e MYSQL_DATABASE= Creates and names a new database e.g. wordpress.
+
+    Docker parameters:
+
+    –name wordpressdb – Names the container.
+    -v “$PWD/database”:/var/lib/mysql – Creates a data directory linked to the container storage to ensure data persistence.
+    -d – Tells Docker to run the container in daemon.
+    mariadb:latest – Finally defines what to install and which version.
+
+  Then run the command below while replacing the <password> with your own.
+
+  #docker run -e MYSQL_ROOT_PASSWORD=admin@123 -e MYSQL_DATABASE=wordpress --name wordpressdb -v "$PWD/database":/var/lib/mysql -d mariadb:latest
+
+-- WordPress with Docker
+
+  WordPress is also made officially available on Docker Hub, pull the image using the command below. When the version to download is not specified Docker will fetch the latest available.
+
+   #docker pull wordpress  
+
+   WordPress container also takes environment variables and Docker parameters:
+
+    -e WORDPRESS_DB_PASSWORD= Set the same database password here.
+    –name wordpress – Gives the container a name.
+    –link wordpressdb:mysql – Links the WordPress container with the MariaDB container so that the applications can interact.
+    -p 80:80 – Tells Docker to pass connections from your server’s HTTP port to the containers internal port 80.
+    -v “$PWD/html”:/var/www/html – Sets the WordPress files accessible from outside the container. The volume files will remain even if the container was removed.
+    -d – Makes the container run on background
+    wordpress – Tells Docker what to install. Uses the package downloaded earlier with the docker pull wordpress -command.
+
+    Run the command below while replacing the <password> as you did for the MariaDB container.
+
+    docker run -e WORDPRESS_DB_USER=root -e WORDPRESS_DB_PASSWORD=admin@123 --name wordpress --link wordpressdb:mysql -p 80:80 -v "$PWD/html":/var/www/html -d wordpress
+
+    Then open your server’s domain name or IP address in a web browser to test the installation. You should be redirected to the initial WordPress setup page at http://<public IP>/wp-admin/install.php. 
+
+ 3. node-expoter run on docker 
+
+ # docker run -d -p 9104:9100 --name=node-exporter prom/node-exporter

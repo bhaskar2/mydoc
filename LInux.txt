@@ -1,0 +1,723 @@
+1964-- Bell Laboratory
+
+1969-- withdrew the unix project
+
+Dannis Ritchie and Ken thompson
+
+--> UNICS-- Uniplexed Information and Computing services
+
+1975-- UNIX V6
+
+UNIX--
+
+-- IBM-AIX
+--Sun Sobris
+--Mac OS
+--HP-UX
+
+this is flavour of Unix
+
+
+Linus Tornold--1991
+
+Andrew Tanenbaum--MINIX Os study by Linus and then make it Linux
+
+Linux-- This is a Kernel(this is part of OS) 
+
+Linux+GNU--> OS
+
+Linux--
+--RHEL
+--Fedora
+--Debian
+--Others(Ubuntu(3rd most OS),CentOS,AmazonLinux,Kali Linux)
+
+
+OS--
+--CLI(Command Line INterface)
+--GUI(Graphical User Interface)
+
+
+--> Linux is not OS
+-->Linux is not a Unix derivative. It was written from scratch
+-->A linux distribution is the linux kernel and collection of software that together create an OS.
+
+Linux features:
+--------------
+
+1- Open Source
+2- Secure
+3- Simplified updates for all Installed Software
+4- Light Weight
+5- Multiuser - Multi task
+6- Multiple distribution - Redhat,Debian,Fedora
+
+----------------------
+
+Windows--H/W<-OS<-Shell<-User  -- Folder , Administrator, File Softrare
+Linux--H/W<-Kernel<-Shell<-User -- Directory, Root user, Package
+
+---------------------------------
+
+Windows--- C\
+
+--Program file
+-- users
+-- Program(x86)
+-- Puflogs
+
+------------------------
+
+Linux--/ Top level Root directory
+
+--/root
+--/home
+--/boot
+--/etc
+--/usr
+--/bin
+
+
+File Suystem Hierachy
+---------------------
+
+/home--> Home directory for other users
+/root--> It is home direcory for root user
+/boot--> It contains bootable files for Linux eg->intial
+
+/etc-->It contains all Configuration file
+/usr--> by default software are installed in this directory
+/bin--> It contains commands used by all users
+/sbin-->It contains Commands used by only root user
+/opt--> Optional application softeare packages
+/dev-->Essential device files. This includes terminal devices used or any device attached to the system.
+
+
+-----------------------
+
+How to Create a File?
+
+cat-->
+
+cat > file1  --end the file clt+d
+
+touch -- create a empty file eg. touch file1 file2
+
+vi/vim-- editor
+
+nano-- editor
+
+
+create a root user in ec2-suer:-- 
+
+$sudo su (super user do switch User)
+
+now we can go to root user
+
+------------
+
+
+cat command:
+------------
+
+the command us one of the most universal tools yet all it does is copy standard input to satandard output.
+
+cat
+--createfile-- creating single file
+--concatenate file-- To add more than one file into a single file
+--copy files--To copy the context of x into y
+--tac-- to see the content in bottom to top
+
+#cat > file1
+what is this
+how are you
+--clt+d
+#ls
+file1
+#cat file1
+what is this
+how are you
+#cat > file2
+namaste 
+--clt+d
+
+
+To add the file
+#cat >> file1
+Thank you
+#cat file1
+what is this
+how are you
+Thank you
+
+# cat file1 file2 > all
+
+--Here new file data is add to the all file
+
+# cat all
+
+-----------------
+
+Touch Command:
+--------------
+
+--create an empty file
+--create multiple empty file
+-- update only access time of file,modify time of file
+
+
+Time Stamp:
+
+--Access time (lasttime when a file was access) touch -a
+-- Modify time (last time when a file was modified) touch m
+--change time(last time when file metadata was changes)
+
+#touch file1
+#ls
+#touch file1 file2 file3 file4
+
+# touch -a file2 -- Access time got change in this command
+#touch -m file4 -- modify time of file
+
+-----------------------
+vi editor
+--------
+- A program text editor
+- It can be used to edit all kinds of plain text,it is specially usefulof editing programs mainly used for Unix programs.
+
+Note:
+:w--To save
+:wq or :x-- to save and quit
+:q--quit
+:q!-- Force quit,no save
+
+'vi' is a standard whereas 'nano' has to be available depending on the linux you use
+
+move the croser
+
+H J K L
+-------------------
+nono command:
+-----------
+
+# nano fileb
+ctrl+X -- out of editor
+ctrl+o--over right
+Y--save file
+---------------------------------------------------
+
+how to create a directory
+
+# mkdir dri1
+# ls
+# mkdir dir2/dir3/dir4 -- directory is created inside the directory
+# cd -- change directory
+# cd .. --> parent directory
+#pwd --> print working directory
+
+----------------------------------------
+
+How to make hidden file?
+
+# touch .file1-- dot symbol is create the hidden file
+# ls -a -- -a show the hidden file and folder
+
+
+How to copy a file?
+
+# cp <source file> <destination file>
+# cp file1 file2
+
+How to cut & paste?
+
+# mv file1 <directory>
+# mv file1 dir1
+# cd dir1
+# ls
+
+How to rename file or directory?
+
+# mv oldname newname
+
+How to remove file or directory?
+
+rmdir--> This command is used to remove the specified directory(empty).
+rmdir -p--> Remove both the parent adn child directory
+rmdir -pv --> Removes all the parent and subdirectory along with the verbvose
+
+rm -rf --> Removes even non-empty file and directory
+rm -rp -->removes non-empty directories including parent and subdirectory.
+rm -r --> Removes empty directories
+
+#####################
+
+#hostname
+#ifconfig-- ip address
+#hostname -i -- show the ip address
+#cat /etc/os-release--show the os version
+
+#yum(yellowdog updater modified)
+#yum install httpd-- install apache into the server
+
+#yum remove httpd-- remove the httpd
+#yum update httpd -- update the httpd
+#service httpd start--start the service
+#service httpd status-- check the satus
+#chkconfig httpd on--manually start the service
+#chkconfig httpd off
+#which
+#whoami--to know who is the user
+#echo--create a file
+#echo "Hello"
+#echo "welcome"filez
+#echo "welcome" > filez
+#cat filez 
+#echo "Namaste" >> filez
+#cat filez
+#echo > filez
+#cat filez
+
+
+#grep -- serach the 
+
+#sort
+
+# yum list installed
+
+###############################
+
+useradd --> To create a user
+      #useradd bhasker
+      #cat /etc/passwd
+#groupadd solarui
+#cat /etc/group
+#gpasswd -a mitua solarui
+#gpasswd -M ajay,sameer,vijay
+
+groupadd --> To create a group
+gpasswd -a/-M --> To add user into group to add multiple user
+
+ln --> hardlink--backup
+#ln file2 backupfile2
+#ls
+file2 backupfile2
+--add the contenct to file2 ,it will see in the backupfile2
+ln -s --> softlink--shortcut
+
+#ln -s file1 softfile1
+
+tar --> Tar is an archiver used to combine multiple files into one
+#tar -cvf dirtar dirx
+--create
+--verbase
+--forcefully
+gzip-- gzip is a compression tool used to reduce the size of file
+#gzip dirx.tar
+#ls
+dirx.tar.gz
+#gunzip dir.tar.gz
+#tar -xvf dirx.tar
+
+wget--> wget is the non-interact network downloader
+#wget <url>
+
+##################
+
+practies:
+
+
+#touch file1 file2 fil3
+#mkdir -p dir1 dir2
+#useradd bhupindra
+#cat /etc/passwd -- check the user 
+#groupadd techgrp
+#cat /etc/group-- check the group
+#useradd ajay
+#useradd vikas
+#gpasswd -a bhupindra techgrp -- add single user to group
+#gpasswd -M ajay,vikash techgroup --multile user add to group
+
+#cat /etc/group
+
+################
+
+#cat >> file1
+hello
+namste
+susbscribe 
+
+#ln -s file1 softlinkfile1 -- create a softlink
+
+# ls -l -- check the file is created
+
+# cat softlinkfile1 -- crose the file check
+-- if you update the file1 , then softlinkfile also be updated.
+
+--note:-- if you remove the file, then softlink will not open
+
+#########
+# cat >> file2
+New file data should updated here
+# ln file2 hardlinkfile2
+# ls -- check the file
+# cat hardlinkfile2 -- check here to file2 data is showing here
+Note-- here the hardlink file is not remove, if you delete the file.
+
+##########################
+
+# tar -cdf dirx.tar dirx -- create dirx as dirx.tar
+#ls
+#gzip dirx.tar -- make the file to zip, this is as compress file
+
+-- uncompress the file
+
+#gunzip dirx.tar.gz -- uncompress
+
+#tar -xvf dirx.tar -- remove the tar
+# ls 
+dirx -- here the directory which was compressed
+
+home/nitin/report.txt
+
+######################
+
+
+Access Modes/Permissions:
+-----------------------
+Access mode
+
+r =4 To display the content(file) --To list the content(dir)
+
+w = 2 To modify(file) -- to chreate or remove (dir)
+
+x = 1 to execute the file -- to enter into directory
+
+
+commands:
+---------
+
+chmod -- used to change the access mode of a file
+chown -- change the owner of file or directory
+
+chgrp -- change the group of file or dir
+
+
+-----------------------------
+
+drwxr-xr-x 3 root root 4096 Jan 20 22:33 dir20
+
+d -- directory
+
+rwx --read write execute permission of owner / root user
+
+r-x --(group)-- here the permission is read and execute it to group
+
+r-x --(other) -- here the permission to the other which is read and execute
+
+3 -- symbolic link
+
+root -- first root (owner)
+
+root -- this is group (root)
+
+4096 -- memory of dir20
+
+----------------------------
+
+rwx -- this is alphabatic oder
+
+#chmod 777 dir -- this is change the directory as read write execute oder
+
+-r-x -wx r-- ==401 021 400 ==534
+
+#chmod 534 dir
+
+
+----------
+
+u =owner/root user
+g = group
+o =other
+
+
+u = rwx -- owner permission
+u+x --- this will be permissions like rw-
+
+o-x  --- remove the permissions
+r--rwx-wx
+
+chmod u-wx,g+w,o=wx file1
+
+#chown bhupindra file1 -- change the ower of file1
+#chgrp devops file1 ---change the group name
+------------------
+
+labs:
+
+#touch file1
+#mkdir dir1
+#useradd exam1
+#groupadd devops
+#ls -l
+
+#chmod 555 dir1
+#chmod 755 file1
+
+#chmod g=r,o=rw dir1
+
+# chmod u=r,g=rwx,
+
+
+#######################################################
+
+How to install samaba server?
+
+#yum install samba*
+#systemctl start smb
+#systemctl enable smb
+
+Enter to the firewalld
+#firewall-cmd --permanent --add-service=samba
+#firewall-cmd --reload 
+
+#mkdir /my_files
+#vim /etc/samba/smb.conf
+
+workgroup = REDHAT
+
+
+
+hosts allow =127.192.168.1
+
+shift+g -- go to last line
+
+
+
+[public]
+comment= this is my samba server
+path =/my_files
+public = yes
+writable = yes
+
+
+#chcon -R -t samba_share_t/my_files
+
+#systemctl restart smb
+#useradd ganesh
+#passwd ganesh --this is not related to samba
+
+#smbpasswd -a ganesh
+--type password
+
+#smbclient //192.168.1.30/network -U ganesh
+--put ganesh samba paswd
+smb:>
+
+# touch /my_file/johshi
+
+
+#########################
+
+
+setfacl -m u:exam1:rwx wind
+
+setfacl -R -m u:exam1:rx /home/
+
+#setfacl -R -m u:exam2:rx /home/bhasker/wind/--Give read and execute permissions to wind/ directorry
+#getfacl wind/  -- to see the file permissions of user
+
+Refer to this url:-
+https://serverfault.com/questions/168400/how-to-give-write-permissions-to-multiple-users
+
+
+chown -R exam1:exam1 wind
+
+
+----------------------------------
+
+1. Using tar file install java ---https://tecadmin.net/install-java-8-on-centos-rhel-and-fedora/
+
+Setting the class path:
+[root@files ~]# update-alternatives --config java
+
+There is 1 program that provides 'java'.
+
+  Selection    Command
+-----------------------------------------------
+*+ 1           /opt/jdk1.8.0_211/bin/java -- copy the path
+
+[root@files ~]# echo "JAVA_HOME=/opt/jdk1.8.0_211/bin/java" >> .bash_profile 
+[root@files ~]# source .bash_profile 
+[root@files ~]# echo $JAVA_HOME
+/opt/jdk1.8.0_211/bin/java
+[root@files ~]# echo "M2_HOME=/opt/apache-maven-3.5.4" >> .bash_profile 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
