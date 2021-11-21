@@ -478,6 +478,22 @@ docker run -d -p 8084:8080 -v /:/rootfs:ro -v /var/run:/var/run:rw -v /sys:/sys:
 
   docker run -d -p 8084:8080 -v /:/rootfs:ro -v /var/run:/var/run:rw -v /sys:/sys:ro -v /var/lib/docker/:/var/lib/docker:ro --name=cadvisor google/cadvisor:latest
 
+  164.52.195.20
+  164.52.195.5
+  164.52.195.60
+  164.52.202.13
+  164.52.202.12 
+
+  164.52.202.17 
+
+  164.52.202.19 
+
+  164.52.202.33 
+  164.52.202.46
+  164.52.195.22
+  164.52.195.25
+
+
 
   - job_name: 'GAMESHA-FTP-233'
 
@@ -510,4 +526,83 @@ We can access Grafana in browser by http://server-IP:3000
 
 16. Git token:
 
-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
+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
+
+17. How to install Maven on centos7
+
+Download the maven binary file 
+
+wget https://dlcdn.apache.org/maven/maven-3/3.8.3/binaries/apache-maven-3.8.3-bin.zip
+
+Unzip the file 
+
+unzip apache-maven-3.8.3-bin.zip 
+
+cd apache-maven-3.8.3/
+mv apache-maven-3.8.3 maven
+ln -s /opt/maven/bin/mvn /usr/bin/mvn
+
+Set the Environmental path of maven
+
+vim .bash_profile 
+
+# .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+        . ~/.bashrc
+fi
+
+# User specific environment and startup programs
+M2_HOME=/opt/maven
+M2=$M2_HOME/bin
+PATH=$PATH:$HOME/bin:$JAVA_HOME:$M2_HOME:$M2
+
+export PATH
+JAVA_HOME=/opt/jdk1.8.0_211/bin/java
+JAVA_HOME=/opt/jdk1.8.0_211/
+
+Restart the .bash_profile
+source .bash_profile
+Check the version:
+mvn --version
+
+17. Using maven command create mvn project 
+
+D:\>mvn archetype:generate -DgroupId=com.mkyong.web -DartifactId=java-web-project -DarchetypeArtifactId=maven-archetype-webapp -DinteractiveMode=false
+
+test:
+
+D:\>mvn archetype:generate -DgroupId=com.mkyong.web -DartifactId=sample_web_project -DarchetypeArtifactId=maven-archetype-webapp -DinteractiveMode=false
+
+18. How to install Jenkins on Docker container
+Refer: https://rangle.io/blog/running-jenkins-and-persisting-state-locally-using-docker-2/
+
+docker image pull jenkins/jenkins:lts -- Pull the image form docker hub
+
+docker volume create [your volume name]
+    
+
+Run the below command for running jenkins
+docker container run -d \
+    -p 8083:8080 \
+    -v /jenkins_data:/var/jenkins_home \
+    --name jenkins-local \
+    jenkins/jenkins:lts
+
+~                            
+Afte run the container get the code :
+
+go to jenkins container bash
+
+and type the command.
+
+19.Check the backup on 172.16.0.67
+
+cd /DATA/EPM-BKP/
+ls -lrth EPM-FTP/ECMWF/source/
+ls -lrth /DATA/EPM-BKP/EPM-FTP/IMD/wrf/source/
+
+20. docker compose for maganto
+
+https://cloudkul.com/blog/magento-2-docker-compose/
