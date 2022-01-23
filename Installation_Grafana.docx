@@ -1,0 +1,27 @@
+How to install Grafana on Centos 7
+
+1. Download the grafana enterprise edition or oss version as below link
+
+   https://grafana.com/grafana/download?edition=enterprise&platform=linux
+
+   For example:
+
+   #wget https://dl.grafana.com/enterprise/release/grafana-enterprise-8.3.3-1.x86_64.rpm 
+
+   Install the grafana on centos7
+
+   sudo yum install grafana-enterprise-8.3.3-1.x86_64.rpm 
+
+2. Start and check the status of grafana 
+
+   #systemctl start grafana-server.service
+   #systemctl status grafana-server.service
+   #systemctl enable grafana-server.service
+
+
+3.Install telegraf on centos 7
+
+Installation document: https://docs.influxdata.com/telegraf/v1.21/introduction/installation/?t=RedHat+%26amp%3B+CentOS
+
+  1. For monitoring remote server, we need to install telegraf for influxdb data source
+  2.

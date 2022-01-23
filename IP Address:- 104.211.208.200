@@ -1,0 +1,23 @@
+IP Address:- 104.211.208.200
+
+UID:-  SECIII300MW
+Pass:-  )TTKd4Q7
+
+
+f
+
+104.211.208.200
+
+ftp -inv 104.211.208.200 <<EOF
+user SECIII300MW )TTKd4Q7
+lcd /home/bhasker/Downloads/ftpdata/
+mget *.csv
+bye
+EOF
+
+curl 'ftp://server.de/dir/'$(curl 'ftp://server.de/dir/' 2>/dev/null | tail -1 | awk '{print $(NF)}')
+
+curl -o $DATE-<FILE NAME HERE> ftp://<USERNAME HERE>:<PASSWORD HERE>@<FTP PATH HERE>
+
+wget -r ftp://username:password@ip/directoryname
+wget -r ftp://SECIII300MW:)TTKd4Q7@104.211.208.200/

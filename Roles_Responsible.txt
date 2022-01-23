@@ -286,6 +286,11 @@ Case 3: Stop the Schedule task on Client System
 
     4. In this way we store the data OPC UA into our database 
 
+    Note:
+    Some times data is not updated into our mysql database
+
+    So select the data logger and on map tab -- bro
+
 
      
 
@@ -388,17 +393,27 @@ sudo docker run \
 
  12. grafana and prometheus configuration 
  https://www.devopsart.com/2021/03/step-by-step-to-monitor-docker.html
+ https://stefanprodan.com/2016/a-monitoring-solution-for-docker-hosts-containers-and-containerized-services/
+ https://medium.com/@piyush.sachdeva055/continous-monitoring-and-alerting-at-docker-host-containers-and-os-level-a40c157f1067
+
+ https://www.metricfire.com/blog/grafana-dashboards-from-basic-to-advanced/
+
+ https://www.metricfire.com/blog/grafana-dashboards-from-basic-to-advanced/
+
+ https://grafana.com/grafana/download?platform=linux
+
+ https://www.techiescorner.in/grafana-mail-alert-configuration/
+
+ https://www.techiescorner.in/grafana-mail-alert-configuration/#comment-33550
+
+ docker run -d --name grafanal -p 3001:3000 -v grafana_config:/etc/grafana -v grafana_data:/var/lib/grafana -v grafana_log:/var/log/grafana grafana/grafana
 
 
     docker run -d -p 8084:8080 -v /:/rootfs:ro -v /var/run:/var/run:rw -v /sys:/sys:ro -v /var/lib/docker/:/var/lib/docker:ro --name=cadvisor google/cadvisor:latest
 
-    docker run -d -p 9100:9100 --name=node-exporter prom/node-exporter
+    docker run -d -p 9104:9100 --name=node-exporter prom/node-exporter
 
 
-    sshpass -p d@bDy!8&^tyu&{#8 sftp Weather_fb@$14.140.36.68 
-
-    sftp -P 22 Weather_fb@14.140.36.68
-    password: 
 
     docker run -itd --user 998:998 --name=telegraf \
       -v /proc:/host/proc:ro \
@@ -424,7 +439,14 @@ docker run --rm \
 
    ftp://ftp.50hertz.in/SOLAR/TS/CHELPUR/CHELP_SCCL
 
-13: How to create user and given setfacl access to the user
+13.Sftp command for login into the ftp server
+
+    sshpass -p d@bDy!8&^tyu&{#8 sftp Weather_fb@$14.140.36.68 
+
+    sftp -P 22 Weather_fb@14.140.36.68
+    password: 
+
+13.1: How to create user and given setfacl access to the user
 
 Complete FTP Creation on awsftp:
    useradd chel -s /sbin/nologin
@@ -453,6 +475,46 @@ Server name:- ftp.50hertz.in
 User:chel
 Password: 3Orq0PxsQt6lDIAp
 Path: ftp://ftp.50hertz.in/SOLAR/TS/CHELPUR/CHELP_SCCL
+
+
+
+PSS – Bajariya
+
+State – UP
+
+Generator – Agrawal Solar Power (UP) Pvt. Ltd.
+
+Data provider –     
+
+FTP - ftp://ftp.50hertz.in/SOLAR/UP/BAJARIYA/BAJA_AGAR
+
+
+User: bajariya
+
+useradd bajariya -s /sbin/nologin
+Password: Cg9yqK9UdzIYPdc1
+setfacl -m u:bajariya:rx /home/wind/
+setfacl -m u:bajariya:rx /home/wind/
+setfacl -m u:bajariya:rx /home/wind/SOLAR/
+setfacl -m u:bajariya:rx /home/wind/SOLAR/UP/
+setfacl -m u:bajariya:rx /home/wind/SOLAR/UP/BAJARIYA/
+setfacl -m u:bajariya:rx /home/wind/SOLAR/UP/BAJARIYA/BAJA_AGAR/
+setfacl -R -m u:bajariya:rwx /home/wind/SOLAR/UP/BAJARIYA/BAJA_AGAR/
+getfacl -R -m u:bajariya:rwx /home/wind/SOLAR/UP/BAJARIYA/BAJA_AGAR/
+getfacl  /home/wind/SOLAR/UP/BAJARIYA/BAJA_AGAR/
+getfacl  /home/wind/SOLAR/UP/BAJARIYA/
+
+
+Hi Prateek,
+
+Please find the below details of FTP.
+
+Here the details:
+
+Server name:- ftp.50hertz.in
+User:bajariya
+Password: Cg9yqK9UdzIYPdc1
+Path: ftp://ftp.50hertz.in/SOLAR/UP/BAJARIYA/BAJA_AGAR
 
 
 14.How to install portainer ?
@@ -484,7 +546,7 @@ docker run -d -p 8084:8080 -v /:/rootfs:ro -v /var/run:/var/run:rw -v /sys:/sys:
   164.52.202.13
   164.52.202.12 
 
-  164.52.202.17 
+  164.52.202.17 sftp -P 2202 weather_fb@35.200.207.53
 
   164.52.202.19 
 
@@ -606,3 +668,305 @@ ls -lrth /DATA/EPM-BKP/EPM-FTP/IMD/wrf/source/
 20. docker compose for maganto
 
 https://cloudkul.com/blog/magento-2-docker-compose/
+
+
+21.JAVA_HOME Path set up on WINDOWS 
+
+set the system  variable 
+
+JAVA_HOME=C\Programs\java\jdk\
+PATH=%JAVA_HOME%\bin
+
+For maven
+MAVEN_HOME
+
+ftp://ftp.50hertz.in/SOLAR/AP/Peddapadu/Peddapadu_KBOPL/
+User ID: kbopl
+PWD:5vUb5tM2YaBcVE3Q
+
+22. Deploy EPM 
+
+1. Download the Parser from the build
+2. Login to ssh root@101.53.142.42
+3. Check the process
+   ps aux |grep SCH
+4.Copy the parser to the target server path= /home/www_epm/prod/lib/ 
+
+5.Kill the process and start the parser
+
+kill -9 pid;nohup /opt/jdk1.8.0_211/bin/java -DAsyncLogger.ThreadNameStrategy=UNCACHED -Dserver.mode=qa -Xmx4g -DPROCESSNAME=WEATHER-SCHEDULER -DEPM_HOME=/home/www_epm/prod -Dcom.sel.product=epm -Dspring.batch.job.enabled=false -Dorg.quartz.scheduler.instanceName=WEATHER-SCHEDULER -XX:+HeapDumpOnOutOfMemoryError -jar /home/www_epm/prod/lib/EPM-parser-1.12-SNAPSHOT.jar$
+
+6. Go to the QA server ssh root@101.53.142.177
+
+Restart the parser SCHDULAR-1
+
+23. Project Backup Path Nitin's system
+
+1.we are taken backup of project and thenderbird of all users
+2.The backup script is running on 172.16.1.160
+3.script location /root/scripts/backup_script/bkp1.sh
+4.search the user details on script
+5.Check the backup of path 
+    df -Th
+6.If user change the path , then mention it on script
+
+23. How to take heap Dump on docker container 
+
+1. Go inside the docker container 
+
+ #docker exec -it <contanerid> /bin/bash
+
+2. Inside the container
+
+ See the java process running and take the PID
+
+ #ps -aef| grep java
+
+3. No run the command to create heap dump inside the container
+
+ jmap -dump:live,format=b,file=heap.hprof 1
+
+ list out the heap dump
+ #ls -ltrh
+ -rw------- 1 root root  19M Nov 27 07:24 heap.hprof
+
+4. Copy the heap dump into local host system
+
+  #docker cp 80e:/usr/local/tomcat/heap.hprof .
+
+  Refer link: https://iceburn.medium.com/thread-and-heap-dumps-in-docker-containers-9aada82226fb
+
+
+24. Jenkins run the container 
+
+docker run -p 8085:8080 -p 50000:50000 -v myvolume:/tmp/jenkinsworkplace jenkins/jenkins:lts
+
+25. Script add for ftp details
+
+   vim /home/script/archive-sync/FTP-Sync-Archive.sh
+   vim /home/script/archive-sync/solar-sync.txt
+   vim /home/script/archive-sync/FTP-Arc-Archive.sh
+   vim /home/script/archive-sync/solar-arch.txt
+   vim /home/script/archive-sync/ArchiveS3.sh
+
+    ftp://ftp.50hertz.in/SOLAR/GJ/OCHHAN/OCHH_ANUP1
+          ftp://ftp.50hertz.in/SOLAR/GJ/OCHHAN/OCHH_ANUP2
+          ftp://ftp.50hertz.in/SOLAR/GJ/OCHHAN/OCHH_ANUP3
+
+
+PSS – Khandke
+
+State – MH
+
+Generator – Energy Bot
+
+Data provider – Energy Bot
+
+FTP - ftp://ftp.50hertz.in/WIND/PCN01_METER
+
+
+user: enbot
+pwd : DblCPUVo78QKuWK0
+
+
+
+Hi Prateek,
+
+Please find the below details of FTP.
+
+Here the details:
+
+Server name:- ftp.50hertz.in
+User:enbot
+Password: DblCPUVo78QKuWK0
+Path: ftp://ftp.50hertz.in/WIND/PCN01_METER
+
+
+/home/script/archive-sync/wind-sync2.txt
+
+/home/script/archive-sync/wind-sync1.txt
+
+
+kill -9 15614; nohup java -jar wind-power-prediction.jar&
+
+
+
+d@bDy!8&^tyu&{#8
+
+awk -F: '{ print $1}' /etc/passwd
+
+
+26. Production Deployment on EPM application
+
+1. Go to Jenkins "https://ci.50hertz.in/view/EPM/job/epm/job/master/"
+
+2. Trigger the build "Build now" and take download the "EPM-parser-1.12-SNAPSHOT.jar"
+3.copy to the EPM production server 35.154.19.217 
+4.Now copy "EPM-parser-1.12-SNAPSHOT.jar" from /tmp folder to /home/www_epm/prod/lib/
+5.Rename the parser as per the dateswise
+mv EPM-parser-1.12-SNAPSHOT.jar EPM-parser-1.12-SNAPSHOT_131220201_1534.jar
+6. Inside the script change the file name 
+ # crontab -l
+ # vim /home/www_epm/prod/bin/EPM-weather-engine.sh
+
+7. Check the status for parser and restart it.
+
+# ps -aux | grep weather
+#kill -9 1488; sh /home/www_epm/prod/bin/EPM-weather-engine.sh
+
+8.Now check the process
+
+ps -ef | grep WEATHER
+
+If it is running fine, then parser have deployed.
+
+
+"Env": [
+                "PATH=/usr/share/grafana/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "GF_PATHS_CONFIG=/etc/grafana/grafana.ini",
+                "GF_PATHS_DATA=/var/lib/grafana",
+                "GF_PATHS_HOME=/usr/share/grafana",
+                "GF_PATHS_LOGS=/var/log/grafana",
+                "GF_PATHS_PLUGINS=/var/lib/grafana/plugins",
+                "GF_PATHS_PROVISIONING=/etc/grafana/provisioning"
+            ],
+
+
+docker run -itd -p 3000:3000 –name grafana -e “GF_SMTP_ENABLED=true” -e “GF_SMTP_HOST=auto.monitoring@50hertz.in” -e “GF_SMTP_USER=auto.monitoring” -e “GF_SMTP_PASSWORD=#$%^Hertz$@M” grafana/grafana:latest
+
+
+docker run    d\ -
+   p 3000: 3000\
+   --name grafana\ -
+   e "GF_SMTP_ENABLED=true"\ -
+   e "GF_SMTP_HOST=auto.monitoring@50hertz.in"\ -
+   e "GF_SMTP_USER=auto.monitoring"\ -
+   e "GF_SMTP_PASSWORD=#$%^Hertz$@M"\
+grafana / grafana: 5.1 .0
+
+To change the time on command line:
+
+timedatectl set-time 14:50:20
+
+
+Procedure
+
+    Stop the container(s) using the following command:
+
+    docker-compose down
+
+    Delete all containers using the following command:
+
+    docker rm -f $(docker ps -a -q)
+
+    Delete all volumes using the following command:
+
+    docker volume rm $(docker volume ls -q)
+
+    Restart the containers using the following command:
+
+    docker-compose up -d
+
+    docker-compose -f docker-compose.yml restart grafana
+
+
+    influx user create -n hertz -p PaSsWoRd
+
+    CREATE USER hertz50 WITH PASSWORD 'admin123'
+
+
+    CREATE USER hertz50 WITH PASSWORD 'admin123' WITH ALL PRIVILEGES
+
+
+27.https://docs.cpanel.net/knowledge-base/sql/how-to-enable-the-slow-query-log-in-mysql-or-mariadb/
+
+This is slow query
+
+28. HEA production deployment
+
+1. For Hea production deployment , login to the 13.126.148.5
+
+    #ssh ec2-user@13.126.148.5
+2. Go to the deployment path
+    #cd $HEA_HOME/lib
+    #pwd
+    /home/www_epm/hea/lib
+3. Check the process for take the process id of it
+    ps aux | grep SCH
+
+    e.g.
+
+    root     20608  7.0  6.4 5936712 1026340 ?     Sl   12:02   2:06 /var/lib/java/jdk1.8.0_211/bin/java -Xmx1500M -Dserver.mode=prod -Xmx2g -DHEA_HOME=/home/www_epm/hea -Dcom.sel.product=hea -DPROCESSNAME=HEA-SCHEDULAR -Dspring.batch.job.enabled=false -Dorg.quartz.scheduler.instanceName=HEA-SCHEDULAR -XX:+HeapDumpOnOutOfMemoryError -jar /home/www_epm/hea/lib/HEA_DATA_SYNC_ENGINE-1.2-SNAPSHOT.jar
+
+    Kill the process
+
+    kill -9 20608
+
+4. See the file in this folder
+   # ls -ltrh
+
+   HEA_DATA_SYNC_ENGINE-1.2-SNAPSHOT.jar
+5. Take a Backup of this above
+
+   # mv HEA_DATA_SYNC_ENGINE-1.2-SNAPSHOT.jar HEA_DATA_SYNC_ENGINE-1.2-SNAPSHOT.jar_20122021_1201
+
+6. Move the latest artifact into this current folder(/home/www_epm/hea/lib) from /tmp directory
+
+   mv /tmp/HEA_DATA_SYNC_ENGINE-1.2-SNAPSHOT.jar .
+
+7. Now run the script for HEA_DATA_SYNC_ENGINE
+
+   sh /home/www_epm/hea/bin/HEA-engine.sh
+
+Note:
+
+Suppose the Depolyment has version, then we need to change the version of script before runnig it.
+
+X8eoorq.XtB5
+
+sudo mysql_secure_installation -p 'X8eoorq.XtB5'
+
+Admin@1212
+
+ grant all privileges on test.* to root@localhost identified by 'Admin@1212';
+
+To take a backup of mysql (export)
+ #mysqldump -uroot -pAdmin@1212 hea  | gzip -c > hea_28122021.sql.gz
+To import the mysql databases:
+1.Create database Schema e.g. hea (CREATE DATABASE hea;)
+
+#CREATE DATABASE hea;
+
+ gunzip -c hea_28122021.sql.gz | mysql -uroot -pAdmin@1212 hea&
+Rohan@1212
+
+
+
+
+docker run -d --name grafanal -p 3001:3000 -v grafana_config:/etc/grafana -v grafana_data:/var/lib/grafana -v grafana_log:/var/log/grafana grafana/grafana
+
+
+node_load1{instance=~"$node"}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

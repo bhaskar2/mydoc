@@ -1,0 +1,67 @@
+Kafka connector deployment has been done on below 3 EC2-instances
+
+13.127.115.148 -kafka1-nvkn
+13.232.194.131 -kafka2-nvkn
+13.234.50.170  -kafka3-nvkn
+
+1. login to the kafaka user
+
+ sudo su kafka
+
+2. Check the process
+
+  #ps aux |grep connect-dis
+
+3.Back up Path
+
+/Kafka-Data/kafka-connector_Backup
+
+4.Deployment path
+
+/Kafka-Data/kafka-live/libs
+
+Work process Process to Deployment 
+
+1. Download the kafka-connector-0.0.1-SNAPSHOT.jar  from Jenkins into your local server
+2. Copy the kafka-connector-0.0.1-SNAPSHOT.jar  into 3 production server
+
+e.g.scp kafka-connector-0.0.1-SNAPSHOT.jar ec2-user@13.127.115.148:/tmp/
+Note -  Do it for all 3 server
+
+3.Take the backup from all the server
+
+e.g./Kafka-Data/kafka-connector_Backup/ #cp -r /Kafka-Data/kafka-live/libs/kafka-connector-0.0.1-SNAPSHOT.jar .
+
+Similary do it another 2 server.
+
+4.Copy the artifact(kafka-connector-0.0.1-SNAPSHOT.jar) into /Kafka-Data/kafka-live/libs/ from path:/tmp/
+
+ e.g.#cp -r /tmp/kafka-connector-0.0.1-SNAPSHOT.jar .
+
+5.Go to first kafka server(13.127.115.148) and run the cammand from kafka user
+
+$curl -X DELETE http://172.31.27.113:8083/connectors/live-scada-connector
+
+Note: This process is done on 13.127.115.148 server only.
+      Don't do another two server
+6.Stop the process of connect-distributed from three servers.
+  $ kill -9 process-id
+
+7.Go on browser for access http://13.127.115.148:7000 and delete three topics
+
+Topics Name:- live-connect-configs , Live-connect-offsets, Live-connect-status
+
+NOte:if any update please update in connector.json file other wise leave this process.
+
+8.Now Run the process all 3 servers
+
+$cd /Kafka-Data/kafka-live
+$nohup bin/connect-distributed.sh config/connect-distributed.properties &
+
+9.Run the command for creation of connector on first server 13.127.115.148
+
+$curl -d @connector.json  -H "Content-Type: application/json"  -X POST http://172.31.27.113:8083/connectors
+
+10.Check the logs on three servers.
+
+$ tail -f /Kafka-Data/kafka-live/logs/connector.log
