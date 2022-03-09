@@ -1,0 +1,26 @@
+7,22,38,53 * * * * sh /home/script/greenko-ganipss1-scada.sh >> /home/script/logs/greenko-ganipss1-scada.log
+                      /home/wind/SOLAR/D/D1/GREENKO_SCADA/AP/Gani-PSS1/Gani01Divyesh
+7,22,38,53 * * * * sh /home/script/greenko-ganipss2-scada.sh >> /home/script/logs/greenko-ganipss2-scada.log
+                      /home/wind/SOLAR/D/D1/GREENKO_SCADA/AP/Gani-PSS1/Gani02Baskara
+7,22,38,53 * * * * sh /home/script/greenko-ganipss3-scada.sh >> /home/script/logs/greenko-ganipss3-scada.log
+                      /home/wind/SOLAR/D/D1/GREENKO_SCADA/AP/Gani-PSS1/Gani03Shreyas
+7,22,38,53 * * * * sh /home/script/greenko-ganipss4-scada.sh >> /home/script/logs/greenko-ganipss4-scada.log
+                      /home/wind/SOLAR/D/D1/GREENKO_SCADA/AP/Gani-PSS1/Gani04Zuvan
+7,22,38,53 * * * * sh /home/script/greenko-ganipss5-scada.sh >> /home/script/logs/greenko-ganipss5-scada.log
+                      /home/wind/SOLAR/D/D1/GREENKO_SCADA/AP/Gani-PSS1/Gani05Aarish
+7,22,38,53 * * * * sh /home/script/greenko-ganipss6-scada.sh >> /home/script/logs/greenko-ganipss6-scada.log
+                      /home/wind/SOLAR/D/D1/GREENKO_SCADA/AP/Gani-PSS2/Gani06Pratyash 
+7,22,38,53 * * * * sh /home/script/greenko-ganipss7-scada.sh >> /home/script/logs/greenko-ganipss7-scada.log
+                      /home/wind/SOLAR/D/D1/GREENKO_SCADA/AP/Gani-PSS2/Gani07Elena 
+7,22,38,53 * * * * sh /home/script/greenko-ganipss8-scada.sh >> /home/script/logs/greenko-ganipss8-scada.log
+                      /home/wind/SOLAR/D/D1/GREENKO_SCADA/AP/Gani-PSS2/Gani08Aashman
+7,22,38,53 * * * * sh /home/script/greenko-ganipss9-scada.sh >> /home/script/logs/greenko-ganipss9-scada.log
+                      /home/wind/SOLAR/D/D1/GREENKO_SCADA/AP/Gani-PSS2/Gani09Mihir 
+7,22,38,53 * * * * sh /home/script/greenko-ganipss10-scada.sh >> /home/script/logs/greenko-ganipss10-scada.log
+                      /home/wind/SOLAR/D/D1/GREENKO_SCADA/AP/Gani-PSS2/Gani10Enerstar
+
+
+                      ls -lrth /home/wind/WIND/SEMB_ACT/ROHA
+                      ls -lrth /home/wind/WIND/SEMB_ACT/ROHA
+                      ls -lrth /home/wind/WIND/SEMB_ACT/VADVA/
+                      ls -lrth /home/wind/WIND/SEMB_ACT/ROHA/

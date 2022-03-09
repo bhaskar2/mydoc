@@ -5,7 +5,23 @@ DATE=`date +%m.%d.%Y`
 echo "######################################### WIND-SOLAR scripts download #########################################"
 
 echo "##################WIND3 script download##########################"
-rsync -avz root@205.147.98.133:/root/script/*.sh /DATA/Server_Config-Project_Name/WIND-SOLAR/WIND3/script/script_$DATE
+rsync -avz root@205.147.98.133:/root/script/* /DATA/Server_Config-Project_Name/WIND-SOLAR/WIND3/script/script_`date +%m.%d.%Y`/
+cd /DATA/Server_Config-Project_Name/WIND-SOLAR/WIND3/script/script_`date +%m.%d.%Y`/
+chown specs:root *
+chmod 777 *
+
+
+echo "##################WIND3 crontab download##########################"
+rsync -avz root@205.147.98.133:/var/spool/cron/root  /DATA/Server_Config-Project_Name/WIND-SOLAR/WIND3/crontab/crontab_`date +%m.%d.%Y`.txt
+cd /DATA/Server_Config-Project_Name/WIND-SOLAR/WIND3/crontab/
+chown specs:root *
+chmod 777 *
+
+echo "##################WIND3 passwd download##########################"
+rsync -avz root@205.147.98.133:/etc/passwd  /DATA/Server_Config-Project_Name/WIND-SOLAR/WIND3/passwd/passwd_`date +%m.%d.%Y`.txt
+cd /DATA/Server_Config-Project_Name/WIND-SOLAR/WIND3/passwd/
+chown -R specs:root *
+chmod  -R 777 *
 
 echo "################## Wind-DB download##########################"
 rsync -avz root@101.53.136.30:/root/script/*.sh /DATA/Server_Config-Project_Name/WIND-SOLAR/WIND_DB_30/script/script_$DATE
